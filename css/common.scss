@@ -192,8 +192,9 @@ input[type="checkbox"] {
     ul.main-menu {
       display: flex;
       align-items: center;
-      gap: 30px;
+      // gap: 30px;
 
+      height: 100%;
       font-size: 16px;
       font-weight: 300;
       text-align: center;
@@ -202,14 +203,20 @@ input[type="checkbox"] {
       li {
         display: flex;
         align-items: center;
-        height: 30px;
-        padding: 0 2px;
+        height: 100%;
+        padding: 0 15px;
         cursor: pointer;
 
         &.active {
           font-weight: bold;
-          border-bottom: 2px solid #fff;
+          &.not-hover {
+            background: #0ea4bc;
+          }
         }
+        
+        &:hover,&.bg-hover {
+          background: $colors_main_active;
+        }        
       }
 
       &.user-mode {
@@ -293,6 +300,10 @@ input[type="checkbox"] {
       }
       &:nth-child(11) {
         padding-left: 940px;
+      }
+      // 220829 임직원청약
+      &:nth-child(12) {
+        padding-left: 1180px;
       }
       li {
         cursor: pointer;
@@ -867,8 +878,6 @@ input[type="password"] {
   &:disabled {
     background-color: $gray100;
   }
-
-  &.width-400 {width: 400px;}
 }
 input[type=date],input[type=month],input[type=time] {
   height: 30px;
@@ -924,7 +933,13 @@ input[type=date]:after,input[type=month]:after {
   text-decoration: underline;
   position: relative;
   padding-left: 30px;
-
+  // &::before {
+  //   content: url(../assets/c_ic_list_download.svg);
+  //   width: 24px;
+  //   height: 24px;
+  //   position: absolute;
+  //   left:0;
+  // }
   span {
     position: absolute;
     left: 0;
@@ -982,7 +997,12 @@ input[type=date]:after,input[type=month]:after {
   background: url(../assets/c_ic_login_delete.svg) no-repeat center;
   cursor: pointer;
 }
-
+// .btn-delete {
+//   width: 24px;
+//   height: 24px;
+//   background: url(../assets/c_ic_login_delete.svg) no-repeat center;
+//   cursor: pointer;
+// }
 .btn-download {
   width: 20px;
   height: 20px;
@@ -1095,6 +1115,7 @@ input[type=date]:after,input[type=month]:after {
   &:hover {
     border: solid 1px $colors_font;
     color: $colors_font;
+    // font-weight: bold;
   }
 }
 .btn-check-group {
@@ -1118,7 +1139,12 @@ input[type=date]:after,input[type=month]:after {
       border: solid 1px $colors_font;
       color: $colors_font;
     }
- 
+    // &:disabled {
+    //   border: solid 1px $colors_line;
+    //   color: $font_color;
+    //   background-color: $gray100;
+    //   cursor: default;
+    // }
   }
   &.disable {
     .btn-check {
@@ -1702,7 +1728,6 @@ strong {
 .width-86 {width: 86px;}
 .width-132 {width: 132px;}
 .width-40 {width: 40px;}
-
 //info-wrapper
 
 select[multiple], select.select-box {

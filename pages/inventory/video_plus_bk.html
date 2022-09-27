@@ -91,7 +91,7 @@
               <div class="table-top-buttons">
                 <button class="btn-excel"><img />엑셀다운로드</button>
                 <button class="btn-white">부킹현황</button>
-                <button class="btn-register" disabled>등록</button>
+                <button class="btn-register">등록</button>
               </div>
             </div>
             <div class="table-top-sub">
@@ -132,34 +132,35 @@
                 <col style="width: 3%" />
               </colgroup>
               <thead>
+                <!-- 0914 class 추가 -->
                 <tr>
                   <th>프로그램명</th>
                   <th>인벤토리</th>
                   <th>금액</th>
                   <th>구좌수</th>
-                  <th>01</th>
-                  <th>02</th>
+                  <th class="satday">01</th>
+                  <th class="sunday">02</th>
                   <th>03</th>
                   <th>04</th>
                   <th>05</th>
                   <th>06</th>
                   <th>07</th>
-                  <th>08</th>
-                  <th>09</th>
+                  <th class="satday">08</th>
+                  <th class="sunday">09</th>
                   <th>10</th>
                   <th>11</th>
                   <th>12</th>
                   <th>13</th>
                   <th>14</th>
-                  <th>15</th>
-                  <th>16</th>
+                  <th class="satday">15</th>
+                  <th class="sunday">16</th>
                   <th>17</th>
                   <th>18</th>
                   <th>19</th>
                   <th>20</th>
                   <th>21</th>
-                  <th>22</th>
-                  <th>23</th>
+                  <th class="satday">22</th>
+                  <th class="sunday">23</th>
                   <th>합계</th>
                 </tr>
               </thead>
@@ -168,7 +169,11 @@
           </div>
         </div>
         <div class="noti-wrap">
-          <div class="noti-box">2구좌/㈜인크로스/㈜시몬스(청약승인)<br> 1구좌/㈜나스미디어/애플코리아 유한회사(청약승인)<br> 2구좌/㈜나스미디어/애플코리아 유한회사(청약없음)</div>
+          <div class="noti-box">
+            2구좌/㈜인크로스/㈜시몬스(청약승인)<br />
+            1구좌/㈜나스미디어/애플코리아 유한회사(청약승인)<br />
+            2구좌/㈜나스미디어/애플코리아 유한회사(청약없음)
+          </div>
         </div>
       </div>
     </div>
@@ -437,15 +442,48 @@
         $("body").css("overflow", "hidden");
       });
 
+      // 0927
       $(".table td:nth-child(n+5)").on("click", function () {
-        $(this).toggleClass("active");
+        if ($(".table td:nth-child(n+5)").hasClass("active") == false) {
+          $(this).addClass("active");
+        } else {
+          $(".table td:nth-child(n+5)").removeClass("active");
+          $(this).addClass("active");
+        }
         $(this).css("position", "relative");
         $(".noti-wrap").toggleClass("active");
-        if ($(".table td:nth-child(n+5)").hasClass("active")) {
-          $(".btn-register").attr("disabled", false);
-        } else {
-          $(".btn-register").attr("disabled", true);
-        }
+
+        $(document).mouseup(function (e) {
+          var table = $(".table td:nth-child(n+5)");
+          var noti = $(".noti-wrap");
+
+          if (table.has(e.target).length === 0) {
+            table.removeClass("active");
+            noti.removeClass("active");
+          }
+        });
+      });
+
+      $(function () {
+        var isMouseDown = false;
+        $("table.table1 td:nth-child(n+5)")
+          .mousedown(function () {
+            isMouseDown = true;
+            $(this).toggleClass("active");
+            return false; // prevent text selection
+          })
+          .mouseover(function () {
+            if (isMouseDown) {
+              $(this).toggleClass("active");
+            }
+          })
+          .bind("selectstart", function () {
+            return false; // prevent text selection in IE
+          });
+
+        $(document).mouseup(function (e) {
+          isMouseDown = false;
+        });
       });
 
       $(".table td:nth-child(n+5)").click(function (e) {
